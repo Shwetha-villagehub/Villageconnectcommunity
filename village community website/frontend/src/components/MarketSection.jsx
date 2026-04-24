@@ -6,8 +6,7 @@ const products = [
   {
     id: 1,
     name: 'Organic Honey',
-    image:
-      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/organic-honey.svg',
     price: '\u20b9450',
     description: 'Raw village honey in glass jars, naturally rich in flavor and collected in small seasonal batches.',
     cta: 'Buy Now',
@@ -16,8 +15,7 @@ const products = [
   {
     id: 2,
     name: 'Traditional Earthen Pots',
-    image:
-      'https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/traditional-earthen-pots.svg',
     price: '\u20b9250',
     description: 'Handcrafted clay pots shaped by village artisans and finished with a timeless earthy look.',
     cta: 'View Details',
@@ -26,8 +24,7 @@ const products = [
   {
     id: 3,
     name: 'Fresh Farm Grains',
-    image:
-      'https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/fresh-farm-grains.svg',
     price: '\u20b980',
     description: 'Farm-fresh rice, wheat, and pulses stored in baskets and sacks for a wholesome harvest feel.',
     cta: 'Buy Now',
@@ -36,8 +33,7 @@ const products = [
   {
     id: 4,
     name: 'Handwoven Baskets',
-    image:
-      'https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/handwoven-baskets.svg',
     price: '\u20b9300',
     description: 'Beautiful bamboo and cane baskets woven by skilled village hands for everyday use and decor.',
     cta: 'View Details',
@@ -46,8 +42,7 @@ const products = [
   {
     id: 5,
     name: 'Homemade Pickles',
-    image:
-      'https://images.unsplash.com/photo-1603048719539-9ecb4ae8f394?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/homemade-pickles.svg',
     price: '\u20b9200',
     description: 'Traditional Indian pickles prepared at home with bold spices, village recipes, and authentic taste.',
     cta: 'Buy Now',
@@ -56,8 +51,7 @@ const products = [
   {
     id: 6,
     name: 'Natural Jaggery',
-    image:
-      'https://images.unsplash.com/photo-1576186726115-4d51596775d1?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/natural-jaggery.svg',
     price: '\u20b9120',
     description: 'Rustic jaggery blocks with deep caramel sweetness, made from fresh sugarcane using traditional methods.',
     cta: 'View Details',
@@ -66,8 +60,7 @@ const products = [
   {
     id: 7,
     name: 'Organic Turmeric Powder',
-    image:
-      'https://images.unsplash.com/photo-1615485291234-9fbc5341f755?q=80&w=1200&auto=format&fit=crop',
+    image: '/images/marketplace/organic-turmeric-powder.svg',
     price: '\u20b990',
     description: 'Bright yellow turmeric powder served in wooden bowls, stone-ground for aroma, color, and purity.',
     cta: 'Buy Now',

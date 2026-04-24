@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbf5dd"/>
+      <stop offset="100%" stop-color="#f1d26f"/>
+    </linearGradient>
+    <linearGradient id="jar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fff6cf"/>
+      <stop offset="100%" stop-color="#e6b428"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#bg)"/>
+  <circle cx="180" cy="135" r="95" fill="#fff9e7" opacity="0.45"/>
+  <rect x="0" y="590" width="1200" height="210" fill="#f8f2e2"/>
+  <ellipse cx="610" cy="535" rx="250" ry="45" fill="#d0c5a1"/>
+  <rect x="430" y="180" width="360" height="320" rx="58" fill="#f2e7cf" stroke="#cdb78c" stroke-width="8"/>
+  <rect x="500" y="120" width="220" height="90" rx="28" fill="#8f6236"/>
+  <rect x="470" y="245" width="280" height="220" rx="34" fill="url(#jar)"/>
+  <path d="M520 250 C590 280 660 280 730 250 L730 332 C664 362 584 362 520 332 Z" fill="#d39a17" opacity="0.75"/>
+  <g fill="#f3ca39">
+    <polygon points="220,320 265,294 310,320 310,372 265,398 220,372"/>
+    <polygon points="308,320 353,294 398,320 398,372 353,398 308,372"/>
+    <polygon points="264,392 309,366 354,392 354,444 309,470 264,444"/>
+  </g>
+  <g fill="#1f1f1f">
+    <ellipse cx="900" cy="250" rx="28" ry="18"/>
+    <ellipse cx="958" cy="250" rx="28" ry="18"/>
+  </g>
+  <ellipse cx="929" cy="250" rx="18" ry="12" fill="#f6ca44"/>
+  <circle cx="915" cy="247" r="3" fill="#111"/>
+  <circle cx="943" cy="247" r="3" fill="#111"/>
+  <path d="M929 270 L929 300" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+  <path d="M900 280 L880 298 M958 280 L978 298" stroke="#111" stroke-width="7" stroke-linecap="round"/>
+</svg>
