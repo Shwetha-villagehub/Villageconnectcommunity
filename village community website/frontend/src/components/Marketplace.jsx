@@ -2,94 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Star } from 'lucide-react';
 import { FALLBACK_IMAGE } from '../services/config.js';
+import { marketplaceCategories, marketplaceProducts } from '../data/marketplaceData.js';
 
 const Marketplace = () => {
   const [filter, setFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-
-  const sampleProducts = [
-    {
-      id: 1,
-      name: 'Organic Honey',
-      category: 'Homemade items',
-      price: '\u20b9450/jar',
-      image: '/images/marketplace/organic-honey.svg',
-      seller: 'Forest Bee Collective',
-      rating: 4.9,
-      description: 'Raw village honey collected in small batches with its natural aroma and richness intact.',
-    },
-    {
-      id: 2,
-      name: 'Traditional Earthen Pots',
-      category: 'Handicrafts',
-      price: '\u20b9250/pot',
-      image: '/images/marketplace/traditional-earthen-pots.svg',
-      seller: 'Kumar Potters',
-      rating: 4.8,
-      description: 'Hand-shaped clay pots that keep water cool and bring a rustic village touch to the home.',
-    },
-    {
-      id: 3,
-      name: 'Fresh Farm Grains',
-      category: 'Grains',
-      price: '\u20b980/kg',
-      image: '/images/marketplace/fresh-farm-grains.svg',
-      seller: 'Annapurna Farms',
-      rating: 4.7,
-      description: 'Cleaned and sun-dried grain harvest ready for daily meals, flour, and long-term storage.',
-    },
-    {
-      id: 4,
-      name: 'Handwoven Baskets',
-      category: 'Handicrafts',
-      price: '\u20b9300/piece',
-      image: '/images/marketplace/handwoven-baskets.svg',
-      seller: 'Village Weavers',
-      rating: 4.6,
-      description: 'Durable baskets woven by local artisans for shopping, storage, and seasonal gifting.',
-    },
-    {
-      id: 5,
-      name: 'Homemade Pickles',
-      category: 'Homemade items',
-      price: '\u20b9200/jar',
-      image: '/images/marketplace/homemade-pickles.svg',
-      seller: "Grandma's Kitchen",
-      rating: 4.9,
-      description: 'Traditional pickle recipes packed with bold spice, cold-pressed oil, and homemade care.',
-    },
-    {
-      id: 6,
-      name: 'Natural Jaggery',
-      category: 'Homemade items',
-      price: '\u20b9120/block',
-      image: '/images/marketplace/natural-jaggery.svg',
-      seller: 'Sugarcane Farmers Co-op',
-      rating: 4.8,
-      description: 'Unrefined jaggery made from fresh sugarcane juice with deep caramel notes and minerals.',
-    },
-    {
-      id: 7,
-      name: 'Organic Turmeric Powder',
-      category: 'Homemade items',
-      price: '\u20b990/200g',
-      image: '/images/marketplace/organic-turmeric-powder.svg',
-      seller: 'Lakshmi Spice Mill',
-      rating: 4.8,
-      description: 'Bright turmeric powder stone-ground from organically grown rhizomes for cooking and wellness.',
-    },
-  ];
-
-  const [products] = useState(sampleProducts);
+  const [products] = useState(marketplaceProducts);
   const [loading, setLoading] = useState(true);
 
   const categories = ['All', 'Grains', 'Handicrafts', 'Homemade items'];
-
-  const categoryData = [
-    { name: 'Grains', image: '/images/marketplace/grains-category.svg' },
-    { name: 'Handicrafts', image: '/images/marketplace/handicrafts-category.svg' },
-    { name: 'Homemade items', image: '/images/marketplace/homemade-items-category.svg' },
-  ];
 
   useEffect(() => {
     setLoading(false);
@@ -173,7 +94,7 @@ const Marketplace = () => {
             </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categoryData.map((category) => (
+            {marketplaceCategories.map((category) => (
               <motion.div
                 key={category.name}
                 whileHover={{ y: -8, scale: 1.02 }}

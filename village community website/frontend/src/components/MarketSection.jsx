@@ -1,72 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { FALLBACK_IMAGE } from '../services/config.js';
-
-const products = [
-  {
-    id: 1,
-    name: 'Organic Honey',
-    image: '/images/marketplace/organic-honey.svg',
-    price: '\u20b9450',
-    description: 'Raw village honey in glass jars, naturally rich in flavor and collected in small seasonal batches.',
-    cta: 'Buy Now',
-    alt: 'Glass jar of raw organic honey on a natural rustic surface',
-  },
-  {
-    id: 2,
-    name: 'Traditional Earthen Pots',
-    image: '/images/marketplace/traditional-earthen-pots.svg',
-    price: '\u20b9250',
-    description: 'Handcrafted clay pots shaped by village artisans and finished with a timeless earthy look.',
-    cta: 'View Details',
-    alt: 'Traditional handmade earthen clay pots in a rural artisan setting',
-  },
-  {
-    id: 3,
-    name: 'Fresh Farm Grains',
-    image: '/images/marketplace/fresh-farm-grains.svg',
-    price: '\u20b980',
-    description: 'Farm-fresh rice, wheat, and pulses stored in baskets and sacks for a wholesome harvest feel.',
-    cta: 'Buy Now',
-    alt: 'Fresh farm grains including rice wheat and pulses in rustic baskets',
-  },
-  {
-    id: 4,
-    name: 'Handwoven Baskets',
-    image: '/images/marketplace/handwoven-baskets.svg',
-    price: '\u20b9300',
-    description: 'Beautiful bamboo and cane baskets woven by skilled village hands for everyday use and decor.',
-    cta: 'View Details',
-    alt: 'Handwoven bamboo baskets arranged in a warm natural setting',
-  },
-  {
-    id: 5,
-    name: 'Homemade Pickles',
-    image: '/images/marketplace/homemade-pickles.svg',
-    price: '\u20b9200',
-    description: 'Traditional Indian pickles prepared at home with bold spices, village recipes, and authentic taste.',
-    cta: 'Buy Now',
-    alt: 'Homemade Indian pickles in glass jars on a traditional kitchen surface',
-  },
-  {
-    id: 6,
-    name: 'Natural Jaggery',
-    image: '/images/marketplace/natural-jaggery.svg',
-    price: '\u20b9120',
-    description: 'Rustic jaggery blocks with deep caramel sweetness, made from fresh sugarcane using traditional methods.',
-    cta: 'View Details',
-    alt: 'Natural jaggery blocks displayed in a rustic organic setup',
-  },
-  {
-    id: 7,
-    name: 'Organic Turmeric Powder',
-    image: '/images/marketplace/organic-turmeric-powder.svg',
-    price: '\u20b990',
-    description: 'Bright yellow turmeric powder served in wooden bowls, stone-ground for aroma, color, and purity.',
-    cta: 'Buy Now',
-    alt: 'Organic turmeric powder in wooden bowls with a bright yellow natural appearance',
-  },
-];
+import { marketplaceProducts } from '../data/marketplaceData.js';
 
 const MarketSection = () => {
   const scrollToMarket = () => {
@@ -109,7 +44,7 @@ const MarketSection = () => {
           </button>
         </div>
         <div id="market-grid" className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
-          {products.map((product, index) => (
+          {marketplaceProducts.map((product, index) => (
             <motion.article
               key={product.id}
               initial={{ opacity: 0, y: 26 }}
@@ -133,7 +68,7 @@ const MarketSection = () => {
                 />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" />
                 <div className="absolute right-4 top-4 rounded-full bg-white/92 px-4 py-2 text-sm font-bold text-[#2c4327] shadow-md">
-                  {product.price}
+                  {product.marketSectionPrice}
                 </div>
               </div>
 
