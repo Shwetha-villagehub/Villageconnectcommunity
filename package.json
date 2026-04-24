@@ -1,17 +1,18 @@
 {
   "name": "village-community-website-workspace",
   "private": true,
+  "type": "module",
   "engines": {
     "node": "20.x"
   },
   "scripts": {
-    "postinstall": "npm install --prefix \"./village community website\"",
+    "postinstall": "npm install --include=dev --prefix \"./village community website\"",
     "dev": "npm --prefix \"./village community website\" run dev",
     "server": "npm --prefix \"./village community website\" run server",
     "dev:full": "npm --prefix \"./village community website\" run dev:full",
     "start": "npm --prefix \"./village community website\" run start",
     "render-start": "npm --prefix \"./village community website\" run render-start",
-    "build": "npm --prefix \"./village community website\" run build",
+    "build": "npm install --include=dev --prefix \"./village community website\" && npm --prefix \"./village community website\" run build",
     "preview": "npm --prefix \"./village community website\" run preview"
   }
 }

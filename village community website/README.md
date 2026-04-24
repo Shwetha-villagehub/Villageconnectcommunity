@@ -83,6 +83,40 @@ For persistent uploads, use one of these:
 - Attach a Render disk and set `UPLOAD_DIR` to the mounted uploads folder.
 - Move uploads to cloud storage such as Cloudinary, S3, or Supabase Storage.
 
+## Deploying To Vercel
+
+This repository now includes a Vercel setup that:
+- builds the Vite frontend from the repo root
+- serves the frontend as static files
+- routes `/api/*` and `/public/*` requests to a Vercel serverless function backed by the existing Express app
+
+### Vercel Project Settings
+
+- Framework preset: `Other`
+- Root directory: repository root
+- Build command: `npm run build`
+- Output directory: `village community website/dist`
+
+### Required Environment Variables
+
+Add these in the Vercel dashboard:
+
+```env
+MONGODB_URI=your_mongodb_atlas_connection_string
+JWT_SECRET=your_long_random_secret
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+### Important Limitation On Vercel
+
+The current app stores uploaded files on the local filesystem. Vercel functions do not provide persistent local storage, so uploaded resumes and product images will not survive across invocations or redeploys.
+
+For production on Vercel, move uploads to persistent storage such as:
+- Supabase Storage
+- Cloudinary
+- Amazon S3
+
 ## Folder Structure
 
 *(Note: Currently undergoing restructuring!)*
