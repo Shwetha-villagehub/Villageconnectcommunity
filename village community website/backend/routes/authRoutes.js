@@ -51,6 +51,12 @@ router.post('/login', requireDatabase, async (req, res) => {
     const user = await User.findOne({ email: email.toLowerCase() });
     if (!user) return res.status(401).json({ message: 'Invalid email or password' });
 
+    if (typeof user.password !== 'string' || user.password.length === 0) {
+      return res.status(401).json({
+        message: 'This account does not have a valid password set. Please register again or reset your password.',
+      });
+    }
+
     const ok = await bcrypt.compare(password, user.password);
     if (!ok) return res.status(401).json({ message: 'Invalid email or password' });
 

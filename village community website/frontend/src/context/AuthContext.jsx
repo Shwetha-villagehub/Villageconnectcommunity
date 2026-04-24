@@ -4,6 +4,11 @@ import { API_URL } from '../services/config.js';
 
 const AuthContext = createContext(null);
 
+const getApiErrorMessage = (error, fallbackMessage) => {
+  const apiMessage = error?.response?.data?.message || error?.response?.data?.error;
+  return apiMessage || error?.message || fallbackMessage;
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
@@ -30,15 +35,23 @@ export const AuthProvider = ({ children }) => {
   };
 
   const login = async (email, password) => {
-    const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
-    saveSession(res.data);
-    return res.data;
+    try {
+      const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
+      saveSession(res.data);
+      return res.data;
+    } catch (error) {
+      throw new Error(getApiErrorMessage(error, 'Login failed. Please check your credentials.'));
+    }
   };
 
   const register = async (username, email, password) => {
-    const res = await axios.post(`${API_URL}/api/auth/register`, { username, email, password });
-    saveSession(res.data);
-    return res.data;
+    try {
+      const res = await axios.post(`${API_URL}/api/auth/register`, { username, email, password });
+      saveSession(res.data);
+      return res.data;
+    } catch (error) {
+      throw new Error(getApiErrorMessage(error, 'Registration failed. Please try again.'));
+    }
   };
 
   const logout = () => {
