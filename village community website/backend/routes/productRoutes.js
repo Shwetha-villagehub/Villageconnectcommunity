@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import os from 'os';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -10,12 +11,18 @@ import { requireDatabase, sendIfDatabaseUnavailable } from '../middleware/db.js'
 const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const uploadRoot = process.env.UPLOAD_DIR || path.join(__dirname, '..', 'public', 'uploads');
-const productDir = path.join(uploadRoot, 'products');
-if (!fs.existsSync(productDir)) fs.mkdirSync(productDir, { recursive: true });
+const defaultUploadRoot = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'villagecommunity', 'uploads')
+  : path.join(__dirname, '..', 'public', 'uploads');
+const uploadRoot = process.env.UPLOAD_DIR || defaultUploadRoot;
+const ensureDir = (dir) => {
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+};
+const productDir = ensureDir(path.join(uploadRoot, 'products'));
 
 const storage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, productDir),
+  destination: (_req, _file, cb) => cb(null, ensureDir(productDir)),
   filename: (_req, file, cb) =>
     cb(null, `${Date.now()}-${file.originalname.replace(/\s+/g, '-')}`),
 });

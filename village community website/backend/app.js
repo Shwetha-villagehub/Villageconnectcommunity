@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import multer from 'multer';
+import os from 'os';
 import path from 'path';
 import fs from 'fs';
 import mongoose from 'mongoose';
@@ -28,9 +29,15 @@ import mediaRoutes from './routes/mediaRoutes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const uploadRoot =
-  process.env.UPLOAD_DIR ||
-  path.join(process.env.RENDER_DISK_ROOT || __dirname, 'public', 'uploads');
+const defaultUploadRoot = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'villagecommunity', 'uploads')
+  : path.join(process.env.RENDER_DISK_ROOT || __dirname, 'public', 'uploads');
+
+const uploadRoot = process.env.UPLOAD_DIR || defaultUploadRoot;
+const ensureDir = (dir) => {
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+};
 
 const app = express();
 
@@ -43,9 +50,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-if (!fs.existsSync(uploadRoot)) {
-  fs.mkdirSync(uploadRoot, { recursive: true });
-}
+ensureDir(uploadRoot);
 app.use('/public/uploads', express.static(uploadRoot));
 
 app.use(helmet());
@@ -100,10 +105,7 @@ app.get('/api/connection-stats', (_req, res) => {
 
 const resumeStorage = multer.diskStorage({
   destination: (_req, _file, cb) => {
-    const dir = path.join(uploadRoot, 'resumes');
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
-    }
+    const dir = ensureDir(path.join(uploadRoot, 'resumes'));
     cb(null, dir);
   },
   filename: (_req, file, cb) => {
