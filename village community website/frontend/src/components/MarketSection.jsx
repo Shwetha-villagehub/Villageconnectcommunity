@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { FALLBACK_IMAGE } from '../services/config.js';
 
 const products = [
   {
@@ -15,7 +16,8 @@ const products = [
   {
     id: 2,
     name: 'Traditional Earthen Pots',
-    image:'',
+    image:
+      'https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?q=80&w=1200&auto=format&fit=crop',
     price: '\u20b9250',
     description: 'Handcrafted clay pots shaped by village artisans and finished with a timeless earthy look.',
     cta: 'View Details',
@@ -113,7 +115,6 @@ const MarketSection = () => {
             Explore Collection
           </button>
         </div>
-https://c8.alamy.com/comp/WWFJKB/male-farmer-with-heap-of-wheat-grains-in-field-closeup-WWFJKB.jpg
         <div id="market-grid" className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
           {products.map((product, index) => (
             <motion.article
@@ -132,6 +133,10 @@ https://c8.alamy.com/comp/WWFJKB/male-farmer-with-heap-of-wheat-grains-in-field-
                   loading="lazy"
                   decoding="async"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = FALLBACK_IMAGE;
+                  }}
                 />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/20 to-transparent" />
                 <div className="absolute right-4 top-4 rounded-full bg-white/92 px-4 py-2 text-sm font-bold text-[#2c4327] shadow-md">

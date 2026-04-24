@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { API_URL } from '../services/config.js';
+import { FALLBACK_IMAGE, resolveMediaUrl } from '../services/config.js';
 
 const Gallery = () => {
   const [mediaItems, setMediaItems] = useState([]);
@@ -37,7 +37,7 @@ const Gallery = () => {
           >
             {item.type === 'video' ? (
               <video 
-                src={`${API_URL}${item.url}`} 
+                src={resolveMediaUrl(item.url)} 
                 className="w-full h-auto"
                 onMouseEnter={e => e.target.play()}
                 onMouseLeave={e => { e.target.pause(); e.target.currentTime = 0; }}
@@ -45,7 +45,15 @@ const Gallery = () => {
                 loop
               />
             ) : (
-              <img src={`${API_URL}${item.url}`} alt="Village life" className="w-full h-auto transition-transform duration-700 group-hover:scale-110" />
+              <img
+                src={resolveMediaUrl(item.url)}
+                alt="Village life"
+                className="w-full h-auto transition-transform duration-700 group-hover:scale-110"
+                onError={(event) => {
+                  event.currentTarget.onerror = null;
+                  event.currentTarget.src = FALLBACK_IMAGE;
+                }}
+              />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                <p className="text-white text-sm font-sans">{item.name || 'Community Moment'}</p>

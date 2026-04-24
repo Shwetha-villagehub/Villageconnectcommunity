@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Star } from 'lucide-react';
+import { FALLBACK_IMAGE } from '../services/config.js';
 
 const Marketplace = () => {
   const [filter, setFilter] = useState('All');
@@ -186,6 +187,10 @@ const Marketplace = () => {
                     src={category.image}
                     alt={category.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(event) => {
+                      event.currentTarget.onerror = null;
+                      event.currentTarget.src = FALLBACK_IMAGE;
+                    }}
                   />
                 </div>
                 <div className="p-5 text-center bg-white">
@@ -220,6 +225,10 @@ const Marketplace = () => {
                       src={product.image}
                       alt={product.name}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = FALLBACK_IMAGE;
+                      }}
                     />
                     <div className="absolute top-4 left-4">
                       <span className="bg-white/90 backdrop-blur-md text-[#1a1a1a] text-[10px] px-3 py-1.5 rounded-full font-black uppercase tracking-wider shadow-sm">

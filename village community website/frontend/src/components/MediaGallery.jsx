@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { API_URL } from '../services/config.js';
+import { API_URL, FALLBACK_IMAGE, resolveMediaUrl } from '../services/config.js';
 
 const MediaGallery = () => {
   const [media, setMedia] = useState([]);
@@ -76,14 +76,18 @@ const MediaGallery = () => {
             <div key={item._id} className="aspect-square rounded-2xl overflow-hidden shadow-md group relative">
               {item.type === 'video' ? (
                 <video 
-                  src={`${API_URL}${item.url}`} 
+                  src={resolveMediaUrl(item.url)} 
                   className="w-full h-full object-cover"
                 />
               ) : (
                 <img 
-                  src={`${API_URL}${item.url}`} 
+                  src={resolveMediaUrl(item.url)} 
                   alt={item.name} 
                   className="w-full h-full object-cover"
+                  onError={(event) => {
+                    event.currentTarget.onerror = null;
+                    event.currentTarget.src = FALLBACK_IMAGE;
+                  }}
                 />
               )}
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

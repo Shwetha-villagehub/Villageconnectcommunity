@@ -1,7 +1,11 @@
 {
   "name": "village-community-website-workspace",
   "private": true,
+  "engines": {
+    "node": "20.x"
+  },
   "scripts": {
+    "postinstall": "npm install --prefix \"./village community website\"",
     "dev": "npm --prefix \"./village community website\" run dev",
     "server": "npm --prefix \"./village community website\" run server",
     "dev:full": "npm --prefix \"./village community website\" run dev:full",
