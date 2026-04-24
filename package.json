@@ -5,6 +5,8 @@
     "dev": "npm --prefix \"./village community website\" run dev",
     "server": "npm --prefix \"./village community website\" run server",
     "dev:full": "npm --prefix \"./village community website\" run dev:full",
+    "start": "npm --prefix \"./village community website\" run start",
+    "render-start": "npm --prefix \"./village community website\" run render-start",
     "build": "npm --prefix \"./village community website\" run build",
     "preview": "npm --prefix \"./village community website\" run preview"
   }
