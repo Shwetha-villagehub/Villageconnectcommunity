@@ -1,0 +1,11 @@
+{
+  "name": "village-community-website-workspace",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix \"./village community website\" run dev",
+    "server": "npm --prefix \"./village community website\" run server",
+    "dev:full": "npm --prefix \"./village community website\" run dev:full",
+    "build": "npm --prefix \"./village community website\" run build",
+    "preview": "npm --prefix \"./village community website\" run preview"
+  }
+}
