@@ -30,13 +30,18 @@ router.get('/', async (_req, res) => {
 
 router.post('/', requireAuth, requireDatabase, upload.single('image'), async (req, res) => {
   try {
+    const imageUrl = (req.body.imageUrl || req.body.image || '').trim();
+    if (!req.file && !imageUrl) {
+      return res.status(400).json({ message: 'Provide a product image file or an image URL' });
+    }
+
     const product = await Product.create({
       name: req.body.name,
       price: Number(req.body.price),
       description: req.body.description,
       category: req.body.category,
       sellerName: req.body.sellerName,
-      image: req.file ? `/public/uploads/products/${req.file.filename}` : req.body.image || '',
+      image: req.file ? `/public/uploads/products/${req.file.filename}` : imageUrl,
     });
     res.status(201).json({ message: 'Product listed successfully', product });
   } catch (err) {

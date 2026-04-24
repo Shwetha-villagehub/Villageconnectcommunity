@@ -14,6 +14,7 @@ const ProductUploadForm = () => {
     category: 'Vegetables',
     sellerName: '',
     image: null,
+    imageUrl: '',
   });
   const [uploading, setUploading] = useState(false);
   const [message, setMessage] = useState('');
@@ -32,8 +33,17 @@ const ProductUploadForm = () => {
     setMessage('');
     setError('');
 
+    if (!formData.image && !formData.imageUrl.trim()) {
+      setError('Please upload an image or paste an image URL.');
+      setUploading(false);
+      return;
+    }
+
     const data = new FormData();
-    Object.keys(formData).forEach(key => data.append(key, formData[key]));
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === 'image' && !value) return;
+      data.append(key, value);
+    });
 
     try {
       const res = await axios.post(`${API_URL}/api/products`, data, {
@@ -66,11 +76,20 @@ const ProductUploadForm = () => {
           </select>
           <input type="text" name="sellerName" placeholder="Seller Name" onChange={handleChange} required className="w-full px-5 py-3 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-natural-green outline-none" />
           <textarea name="description" placeholder="Product Description" rows="4" onChange={handleChange} required className="w-full px-5 py-3 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-natural-green outline-none"></textarea>
+          <input
+            type="url"
+            name="imageUrl"
+            value={formData.imageUrl}
+            onChange={handleChange}
+            placeholder="Or paste a public image URL (recommended on Vercel)"
+            className="w-full px-5 py-3 border border-gray-200 rounded-2xl focus:ring-2 focus:ring-natural-green outline-none"
+          />
           <div className="border-2 border-dashed border-gray-200 p-8 rounded-2xl text-center cursor-pointer hover:border-natural-green transition-colors relative">
             <input type="file" name="image" onChange={handleFileChange} className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
             <Upload className="mx-auto text-gray-400 mb-2" />
             <p className="text-gray-500">{formData.image ? formData.image.name : 'Click or drag to upload product image'}</p>
           </div>
+          <p className="text-sm text-gray-500">On Vercel, image URLs are more reliable than local file uploads because serverless storage is temporary.</p>
           <button type="submit" disabled={uploading} className="w-full bg-natural-green text-white py-4 rounded-2xl font-bold shadow-lg hover:bg-emerald-700 transition-all disabled:opacity-50">
             {uploading ? 'Processing...' : 'Add to Marketplace'}
           </button>

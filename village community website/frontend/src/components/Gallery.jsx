@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FALLBACK_IMAGE, resolveMediaUrl } from '../services/config.js';
+import { API_URL, FALLBACK_IMAGE, resolveMediaUrl } from '../services/config.js';
 
 const Gallery = () => {
   const [mediaItems, setMediaItems] = useState([]);

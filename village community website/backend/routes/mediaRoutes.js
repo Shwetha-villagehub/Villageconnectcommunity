@@ -26,13 +26,19 @@ router.get('/', async (_req, res) => {
 });
 
 router.post('/upload', requireDatabase, upload.single('media'), async (req, res) => {
-  if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
+  const mediaUrl = (req.body.mediaUrl || '').trim();
+  if (!req.file && !mediaUrl) {
+    return res.status(400).json({ message: 'Provide a media file or a public media URL' });
+  }
 
-  const isVideo = req.file.mimetype.startsWith('video/');
+  const isVideo =
+    req.file?.mimetype?.startsWith('video/') ||
+    req.body.type === 'video' ||
+    /\.(mp4|webm|ogg|mov)$/i.test(mediaUrl);
   const media = await Media.create({
     type: isVideo ? 'video' : 'image',
-    url: `/public/uploads/media/${req.file.filename}`,
-    title: req.body.title || req.file.originalname,
+    url: req.file ? `/public/uploads/media/${req.file.filename}` : mediaUrl,
+    title: req.body.title || req.file?.originalname || 'Community Media',
     description: req.body.description || '',
   });
   res.status(201).json({ message: 'Media uploaded successfully', media });

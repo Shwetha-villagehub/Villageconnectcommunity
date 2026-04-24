@@ -7,7 +7,7 @@ const products = [
     id: 1,
     name: 'Organic Honey',
     image:
-      'https://s.alicdn.com/@sc02/kf/H9c7f282c6aa84d16adc432f9f617fe86H.jpg',
+      'https://images.unsplash.com/photo-1587049352846-4a222e784d38?q=80&w=1200&auto=format&fit=crop',
     price: '\u20b9450',
     description: 'Raw village honey in glass jars, naturally rich in flavor and collected in small seasonal batches.',
     cta: 'Buy Now',
@@ -27,7 +27,7 @@ const products = [
     id: 3,
     name: 'Fresh Farm Grains',
     image:
-      'https://c8.alamy.com/comp/WWFJKB/male-farmer-with-heap-of-wheat-grains-in-field-closeup-WWFJKB.jpg',
+      'https://images.unsplash.com/photo-1516684732162-798a0062be99?q=80&w=1200&auto=format&fit=crop',
     price: '\u20b980',
     description: 'Farm-fresh rice, wheat, and pulses stored in baskets and sacks for a wholesome harvest feel.',
     cta: 'Buy Now',
@@ -37,7 +37,7 @@ const products = [
     id: 4,
     name: 'Handwoven Baskets',
     image:
-      'https://c8.alamy.com/comp/R5RTCP/hand-woven-baskets-for-sale-bogodi-uganda-africa-R5RTCP.jpg',
+      'https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1200&auto=format&fit=crop',
     price: '\u20b9300',
     description: 'Beautiful bamboo and cane baskets woven by skilled village hands for everyday use and decor.',
     cta: 'View Details',

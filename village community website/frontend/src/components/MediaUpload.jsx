@@ -5,6 +5,7 @@ import { API_URL } from '../services/config.js';
 
 const MediaUpload = ({ onUploadSuccess }) => {
   const [file, setFile] = useState(null);
+  const [mediaUrl, setMediaUrl] = useState('');
   const [preview, setPreview] = useState(null);
   const [status, setStatus] = useState('idle'); // idle, uploading, success, error
   const [errorMessage, setErrorMessage] = useState('');
@@ -32,20 +33,24 @@ const MediaUpload = ({ onUploadSuccess }) => {
 
   const clearSelection = () => {
     setFile(null);
+    setMediaUrl('');
     setPreview(null);
     setStatus('idle');
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file && !mediaUrl.trim()) return;
 
     setStatus('uploading');
     const formData = new FormData();
-    formData.append('media', file);
+    if (file) formData.append('media', file);
+    if (mediaUrl.trim()) formData.append('mediaUrl', mediaUrl.trim());
+    if (mediaUrl.trim() && !file) {
+      formData.append('type', /\.(mp4|webm|ogg|mov)$/i.test(mediaUrl) ? 'video' : 'image');
+    }
 
     try {
-      // Replace with your actual API endpoint
       const response = await fetch(`${API_URL}/api/media/upload`, {
         method: 'POST',
         body: formData,
@@ -71,6 +76,20 @@ const MediaUpload = ({ onUploadSuccess }) => {
         <Upload className="text-futuristic-blue" /> Share a Moment
       </h2>
 
+      <input
+        type="url"
+        value={mediaUrl}
+        onChange={(e) => {
+          setMediaUrl(e.target.value);
+          if (e.target.value.trim()) {
+            setFile(null);
+            setPreview(e.target.value.trim());
+          }
+        }}
+        placeholder="Paste a public image or video URL (recommended on Vercel)"
+        className="mb-6 w-full rounded-2xl border border-white/20 bg-white/10 px-4 py-3 text-sm text-white placeholder:text-gray-400 outline-none focus:border-natural-green"
+      />
+
       {!preview ? (
         <div 
           onClick={() => fileInputRef.current.click()}
@@ -89,7 +108,7 @@ const MediaUpload = ({ onUploadSuccess }) => {
             <X size={18} />
           </button>
           
-          {file.type.startsWith('video') ? (
+          {((file && file.type.startsWith('video')) || (!file && /\.(mp4|webm|ogg|mov)$/i.test(mediaUrl))) ? (
             <video src={preview} className="w-full aspect-video object-cover" controls />
           ) : (
             <img src={preview} alt="Preview" className="w-full aspect-video object-cover" />
@@ -97,8 +116,8 @@ const MediaUpload = ({ onUploadSuccess }) => {
 
           <div className="p-6 flex items-center justify-between bg-dark-slate/60 backdrop-blur-md">
             <div className="flex items-center gap-3">
-              {file.type.startsWith('video') ? <Film size={20} className="text-futuristic-purple" /> : <FileImage size={20} className="text-futuristic-blue" />}
-              <span className="text-sm text-gray-200 truncate max-w-[150px]">{file.name}</span>
+              {((file && file.type.startsWith('video')) || (!file && /\.(mp4|webm|ogg|mov)$/i.test(mediaUrl))) ? <Film size={20} className="text-futuristic-purple" /> : <FileImage size={20} className="text-futuristic-blue" />}
+              <span className="text-sm text-gray-200 truncate max-w-[150px]">{file?.name || mediaUrl || 'Remote media'}</span>
             </div>
             
             <button
