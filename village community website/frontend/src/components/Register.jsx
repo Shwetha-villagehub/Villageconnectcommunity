@@ -4,6 +4,18 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 import { User, Mail, Lock, AlertCircle, Loader, CheckCircle2 } from 'lucide-react';
 
+const getReadableError = (error, fallbackMessage) => {
+  if (typeof error?.message === 'string' && error.message !== '[object Object]') {
+    return error.message;
+  }
+
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  return fallbackMessage;
+};
+
 const Register = () => {
   const navigate = useNavigate();
   const { register } = useAuth();
@@ -70,7 +82,7 @@ const Register = () => {
         navigate('/dashboard');
       }, 1500);
     } catch (err) {
-      setError(err.message || 'Registration failed. Please try again.');
+      setError(getReadableError(err, 'Registration failed. Please try again.'));
     } finally {
       setLoading(false);
     }

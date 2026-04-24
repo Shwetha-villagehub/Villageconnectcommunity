@@ -4,6 +4,18 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext.jsx';
 import { Mail, Lock, AlertCircle, Loader } from 'lucide-react';
 
+const getReadableError = (error, fallbackMessage) => {
+  if (typeof error?.message === 'string' && error.message !== '[object Object]') {
+    return error.message;
+  }
+
+  if (typeof error === 'string') {
+    return error;
+  }
+
+  return fallbackMessage;
+};
+
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -36,7 +48,7 @@ const Login = () => {
         navigate('/dashboard');
       }, 1500);
     } catch (err) {
-      setError(err.message || 'Login failed. Please check your credentials.');
+      setError(getReadableError(err, 'Login failed. Please check your credentials.'));
     } finally {
       setLoading(false);
     }

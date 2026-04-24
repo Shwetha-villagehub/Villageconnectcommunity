@@ -4,9 +4,49 @@ import { API_URL } from '../services/config.js';
 
 const AuthContext = createContext(null);
 
+const normalizeErrorMessage = (value, fallbackMessage) => {
+  if (!value) return fallbackMessage;
+  if (typeof value === 'string') return value;
+
+  if (Array.isArray(value)) {
+    const firstMessage = value
+      .map((item) => normalizeErrorMessage(item, ''))
+      .find((item) => typeof item === 'string' && item.trim().length > 0);
+    return firstMessage || fallbackMessage;
+  }
+
+  if (typeof value === 'object') {
+    if (typeof value.message === 'string' && value.message.trim()) return value.message;
+    if (typeof value.error === 'string' && value.error.trim()) return value.error;
+
+    if (value.errors && typeof value.errors === 'object') {
+      const nested = Object.values(value.errors)
+        .map((item) => normalizeErrorMessage(item, ''))
+        .find((item) => typeof item === 'string' && item.trim().length > 0);
+      if (nested) return nested;
+    }
+
+    try {
+      return JSON.stringify(value);
+    } catch {
+      return fallbackMessage;
+    }
+  }
+
+  return String(value);
+};
+
 const getApiErrorMessage = (error, fallbackMessage) => {
   const apiMessage = error?.response?.data?.message || error?.response?.data?.error;
-  return apiMessage || error?.message || fallbackMessage;
+  const normalizedApiMessage = normalizeErrorMessage(apiMessage, '');
+  if (normalizedApiMessage) return normalizedApiMessage;
+
+  const normalizedErrorMessage = normalizeErrorMessage(error?.message, '');
+  if (normalizedErrorMessage && normalizedErrorMessage !== '[object Object]') {
+    return normalizedErrorMessage;
+  }
+
+  return fallbackMessage;
 };
 
 export const AuthProvider = ({ children }) => {
