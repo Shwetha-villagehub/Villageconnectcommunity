@@ -2,11 +2,6 @@
   "version": 2,
   "buildCommand": "npm install --include=dev --prefix \"./village community website\" && npm run build",
   "outputDirectory": "village community website/dist",
-  "functions": {
-    "api/index.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "routes": [
     {
       "src": "^/api/(.*)$",
